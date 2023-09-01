@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:marlo/presentation/screens/dash_bord_section/dash_bord_page.dart';
 
+import 'presentation/router/router.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+  final AppRouter route = AppRouter();
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -18,7 +21,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:const DashBordPage()
+      initialRoute: '/',
+      onGenerateRoute: route.onGenerateRote
     );
   }
 }

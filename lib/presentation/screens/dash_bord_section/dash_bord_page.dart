@@ -80,7 +80,9 @@ class DashBordPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, 'Transaction');
+                      },
                       child: Text(
                         'See all',
                         style: GoogleFonts.notoSans(
@@ -114,4 +116,3 @@ class DashBordPage extends StatelessWidget {
     );
   }
 }
-
