@@ -14,42 +14,45 @@ class DashBordPage extends StatelessWidget {
         body: SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFFF9F0A),
-                      border: Border.all(
-                        color: const Color(0xFFDB8500),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFF9F0A),
+                        border: Border.all(
+                          color: const Color(0xFFDB8500),
+                        ),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        'JB',
+                        style: GoogleFonts.varelaRound(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500),
                       ),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'JB',
-                      style: GoogleFonts.varelaRound(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500),
                     ),
                   ),
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.notifications,
-                  color: Colors.blue,
-                  size: 26,
-                ),
-                spaceForWidth10
-              ],
-            ),
-            spaceForheight20,
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: SingleChildScrollView(
+                  const Spacer(),
+                  const Icon(
+                    Icons.notifications,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  spaceForWidth10
+                ],
+              ),
+              spaceForheight20,
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: List.generate(
@@ -67,7 +70,7 @@ class DashBordPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                             CircleAvatar(
+                            CircleAvatar(
                               radius: 35,
                               backgroundImage: NetworkImage(currenyFlags[index]),
                             ),
@@ -80,15 +83,94 @@ class DashBordPage extends StatelessWidget {
                             Text(
                               currencyNames[index],
                               style: GoogleFonts.notoSans(
-                                  fontSize: 14, fontWeight: FontWeight.w500,color:const Color(0xFF75808A)),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xFF75808A)),
                             )
                           ],
                         ),
                       ),
                     ),
-                  )),
-            )
-          ],
+                  ),
+                ),
+              ),
+              spaceForheight20,
+              spaceForheight10,
+              Text(
+                'To Do . 4',
+                style: GoogleFonts.notoSans(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF768089),
+                ),
+              ),
+              spaceForheight20,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    3,
+                    (index) => Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      height: screenWidth*0.28,
+                      width: screenWidth*0.40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                            colors: toDoBoxGradients[index],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomCenter),
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: CircleAvatar(
+                              backgroundColor: toDoBoxGradients[index][1],
+                              radius: 25,
+                              child: Icon(toDoIcons[index],color: toDoIconsColors[index],),
+                            ),
+                          ),
+                          spaceForheight10,
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                toDoTexts[index],
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.notoSans(fontSize: 12),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              spaceForheight20,
+               Row(
+               
+                 children: [
+                   Text(
+                    'All transactions',
+                    style: GoogleFonts.notoSans(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF768089),
+                    ),
+                    
+              ),
+              const Spacer(),
+              Text('See all',style: GoogleFonts.notoSans(fontSize: 13,color: Colors.blue),),
+              spaceForWidth10,
+                 ],
+               ),
+              spaceForheight20,
+              Column(children: List.generate(4, (index) => Container(child: ListTile(),)),)
+            ],
+          ),
         ),
       ),
     ));
