@@ -41,3 +41,17 @@ List<String> bottemImage = [
   'assets/chat.png',
 ];
 List<String> bottemTexts = ['Home', 'Loans', 'Contacts', 'Teams', 'Chat'];
+
+List<String> filterMoneyInAndOutOptions = ['Money In', 'Money Out'];
+
+List<String> filterStatuses = [
+  'Completed',
+  'Failed',
+  'Declined',
+  'Pending',
+  'Reverted',
+  'Cancelled'
+];
+
+List<String>filterTimeRanges=['Custom','Today','This week','This month','This quarter'];
+List<String>amountMinAndMax=['Minimum','Maximum'];

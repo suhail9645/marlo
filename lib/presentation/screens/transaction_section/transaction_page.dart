@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marlo/logic/filter/filter_cubit.dart';
 import 'package:marlo/presentation/const/widget.dart';
+
+import 'widget/bottem_sheet.dart';
 
 class TransactionPage extends StatelessWidget {
   const TransactionPage({super.key});
@@ -45,7 +49,7 @@ class TransactionPage extends StatelessWidget {
                   Expanded(
                     flex: 9,
                     child: Container(
-                      margin: EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 10),
                       height: 35,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 229, 238, 241),
@@ -72,15 +76,40 @@ class TransactionPage extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      height: 35,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 229, 238, 241),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.filter_alt_sharp,
-                            color: Color(0xFF76808A)),
+                    child: InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (_) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider.value(
+                                value: BlocProvider.of<MoneyFilter>(context),
+                              ),
+                               BlocProvider.value(
+                                value: BlocProvider.of<StatusFilter>(context),
+                              ),
+                               BlocProvider.value(
+                                value: BlocProvider.of<DateFilter>(context),
+                              ),
+                               BlocProvider.value(
+                                value: BlocProvider.of<CurrencyFilter>(context),
+                              )
+                            ],
+                            child: FilterBottermSheet(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 35,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 229, 238, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Icon(Icons.filter_alt_sharp,
+                              color: Color(0xFF76808A)),
+                        ),
                       ),
                     ),
                   )
