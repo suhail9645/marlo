@@ -8,6 +8,7 @@ class AppRouter {
   Route onGenerateRote(RouteSettings routeSettings) {
     MoneyFilter moneyFilter = MoneyFilter();
     StatusFilter statusFilter=StatusFilter();
+    DateFilter dateFilter=DateFilter();
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -18,7 +19,8 @@ class AppRouter {
           builder: (_) =>  MultiBlocProvider(
             providers: [
               BlocProvider.value(value: moneyFilter),
-               BlocProvider.value(value: statusFilter)
+               BlocProvider.value(value: statusFilter),
+               BlocProvider.value(value: dateFilter)
             ],
             child:const TransactionPage(),
           ),

@@ -88,6 +88,9 @@ class TransactionPage extends StatelessWidget {
                               ),
                                BlocProvider.value(
                                 value: BlocProvider.of<StatusFilter>(context),
+                              ),
+                               BlocProvider.value(
+                                value: BlocProvider.of<DateFilter>(context),
                               )
                             ],
                             child: FilterBottermSheet(),
