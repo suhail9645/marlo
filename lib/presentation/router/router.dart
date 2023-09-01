@@ -9,6 +9,7 @@ class AppRouter {
     MoneyFilter moneyFilter = MoneyFilter();
     StatusFilter statusFilter=StatusFilter();
     DateFilter dateFilter=DateFilter();
+    CurrencyFilter currencyFilter=CurrencyFilter();
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -20,7 +21,8 @@ class AppRouter {
             providers: [
               BlocProvider.value(value: moneyFilter),
                BlocProvider.value(value: statusFilter),
-               BlocProvider.value(value: dateFilter)
+               BlocProvider.value(value: dateFilter),
+               BlocProvider.value(value: currencyFilter),
             ],
             child:const TransactionPage(),
           ),

@@ -226,78 +226,93 @@ class FilterBottermSheet extends StatelessWidget {
                       },
                     ),
                     spaceForheight20,
-                    Container(
-                      height: 290,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
+                    BlocBuilder<CurrencyFilter, CurrensyState>(
+                      builder: (context, state) {
+                        if(state is CurrensyStateList){
+                        return Container(
+                          height: 290,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
                             children: [
-                              Checkbox(
-                                value: false,
-                                onChanged: (value) {},
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: state.values[0],
+                                    onChanged: (value) {
+                                      BlocProvider.of<CurrencyFilter>(context)
+                                          .onTap(0, state.values, value!);
+                                    },
+                                  ),
+                                  Text(
+                                    'Currencies · 167',
+                                    style: GoogleFonts.notoSans(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
                               ),
-                              Text(
-                                'Currencies · 167',
-                                style: GoogleFonts.notoSans(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
+                              ...List.generate(
+                                3,
+                                (index) => Row(
+                                  children: [
+                                    Checkbox(
+                                      value: state.values[index + 1],
+                                      onChanged: (value) {
+                                        BlocProvider.of<CurrencyFilter>(context)
+                                            .onTap(index + 1, state.values, value!);
+                                      },
+                                    ),
+                                    Expanded(
+                                      child: ListTile(
+                                        contentPadding: EdgeInsets.all(0),
+                                        leading: CircleAvatar(
+                                          radius: 21,
+                                          backgroundImage:
+                                              NetworkImage(currenyFlags[index]),
+                                        ),
+                                        title: Text(
+                                          'USD',
+                                          style: GoogleFonts.notoSans(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          'United States Dollar',
+                                          style: GoogleFonts.notoSans(
+                                              fontSize: 11.0,
+                                              color: Color(0xFF979797)),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  children: [
+                                    Text('See all accounts',
+                                        style: GoogleFonts.notoSans(
+                                            fontSize: 14,
+                                            color: Color(0xFF0CABDF),
+                                            fontWeight: FontWeight.w500)),
+                                  ],
                                 ),
                               )
                             ],
                           ),
-                          ...List.generate(
-                            3,
-                            (index) => Row(
-                              children: [
-                                Checkbox(
-                                  value: false,
-                                  onChanged: (value) {},
-                                ),
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.all(0),
-                                    leading: CircleAvatar(
-                                      radius: 21,
-                                      backgroundImage:
-                                          NetworkImage(currenyFlags[index]),
-                                    ),
-                                    title: Text(
-                                      'USD',
-                                      style: GoogleFonts.notoSans(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      'United States Dollar',
-                                      style: GoogleFonts.notoSans(
-                                          fontSize: 11.0,
-                                          color: Color(0xFF979797)),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children: [
-                                Text('See all accounts',
-                                    style: GoogleFonts.notoSans(
-                                        fontSize: 14,
-                                        color: Color(0xFF0CABDF),
-                                        fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        );
+                        }else{
+                          return const SizedBox();
+                        }
+                      },
                     ),
                     spaceForheight20,
                     BlocBuilder<DateFilter, int>(
@@ -418,6 +433,7 @@ class FilterBottermSheet extends StatelessWidget {
                             children: List.generate(
                               2,
                               (index) => Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
                                 height: 52,
                                 width: 170,
                                 decoration: BoxDecoration(
@@ -425,6 +441,9 @@ class FilterBottermSheet extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       amountMinAndMax[index],
@@ -434,16 +453,18 @@ class FilterBottermSheet extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                        height: 30,
-                                        child: TextFormField(
-                                          decoration: const InputDecoration(
-                                            border: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                          ),
-                                        ))
+                                      height: 20,
+                                      child: TextFormField(
+                                        initialValue: '0',
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -451,13 +472,60 @@ class FilterBottermSheet extends StatelessWidget {
                           )
                         ],
                       ),
-                    )
+                    ),
+                    spaceForheight20,
+                    FilterButton(
+                      text: 'Cancel',
+                      onTap: () {},
+                    ),
+                    spaceForheight10,
+                    FilterButton(
+                      text: 'Apply',
+                      onTap: () {},
+                    ),
+                    spaceForheight20,
                   ],
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class FilterButton extends StatelessWidget {
+  const FilterButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+  });
+  final String text;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 50,
+        decoration: BoxDecoration(
+          color: text == 'Cancel'
+              ? const Color(0xFFC6EBF6)
+              : const Color(0xFF0CABDF),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: GoogleFonts.notoSans(
+                color:
+                    text == 'Cancel' ? const Color(0xFF0CABDF) : Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
       ),
     );
   }
