@@ -72,7 +72,8 @@ class DashBordPage extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: 35,
-                              backgroundImage: NetworkImage(currenyFlags[index]),
+                              backgroundImage:
+                                  NetworkImage(currenyFlags[index]),
                             ),
                             spaceForheight10,
                             Text(
@@ -113,8 +114,8 @@ class DashBordPage extends StatelessWidget {
                     (index) => Container(
                       margin: const EdgeInsets.only(right: 10),
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      height: screenWidth*0.28,
-                      width: screenWidth*0.40,
+                      height: screenWidth * 0.28,
+                      width: screenWidth * 0.40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: LinearGradient(
@@ -129,7 +130,10 @@ class DashBordPage extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: toDoBoxGradients[index][1],
                               radius: 25,
-                              child: Icon(toDoIcons[index],color: toDoIconsColors[index],),
+                              child: Icon(
+                                toDoIcons[index],
+                                color: toDoIconsColors[index],
+                              ),
                             ),
                           ),
                           spaceForheight10,
@@ -150,25 +154,83 @@ class DashBordPage extends StatelessWidget {
                 ),
               ),
               spaceForheight20,
-               Row(
-               
-                 children: [
-                   Text(
+              Row(
+                children: [
+                  Text(
                     'All transactions',
                     style: GoogleFonts.notoSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xFF768089),
                     ),
-                    
+                  ),
+                  const Spacer(),
+                  Text(
+                    'See all',
+                    style:
+                        GoogleFonts.notoSans(fontSize: 13, color: Colors.blue),
+                  ),
+                  spaceForWidth10,
+                ],
               ),
-              const Spacer(),
-              Text('See all',style: GoogleFonts.notoSans(fontSize: 13,color: Colors.blue),),
-              spaceForWidth10,
-                 ],
-               ),
               spaceForheight20,
-              Column(children: List.generate(4, (index) => Container(child: ListTile(),)),)
+              Column(
+                children: List.generate(
+                  4,
+                  (index) => Container(
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ListTile(
+                      leading: Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00455B),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: index % 2 == 0
+                              ? const Icon(
+                                  Icons.attach_money,
+                                  color: Colors.white,
+                                  size: 30,
+                                )
+                              : const Icon(
+                                  Icons.arrow_outward,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                        ),
+                      ),
+                      title: Text(
+                        'Rent',
+                        style: GoogleFonts.notoSans(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        'Sat ·16 Jul · 9.00 pm',
+                        style: GoogleFonts.notoSans(
+                            fontSize: 13, color: const Color(0xFF979797)),
+                      ),
+                      trailing: Column(
+                        children: [
+                          spaceForheight10,
+                          Text(
+                            '-\$850.00',
+                            style: GoogleFonts.notoSans(
+                                color: index % 2 == 0
+                                    ? Colors.green
+                                    : Colors.black,
+                                fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
