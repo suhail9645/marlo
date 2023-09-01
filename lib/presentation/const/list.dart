@@ -28,4 +28,16 @@ List<IconData> toDoIcons = const [
   Icons.phone_android,
   Icons.account_box_outlined
 ];
-List<Color>toDoIconsColors=[Color(0xFF7340E0),Color(0xFFFF9F0A),Color(0x1F000455B)];
+List<Color> toDoIconsColors = [
+  Color(0xFF7340E0),
+  Color(0xFFFF9F0A),
+  Color(0x1F000455B)
+];
+List<String> bottemImage = [
+  'assets/home.png',
+  'assets/doller.png',
+  'assets/file.png',
+  'assets/users.png',
+  'assets/chat.png',
+];
+List<String> bottemTexts = ['Home', 'Loans', 'Contacts', 'Teams', 'Chat'];
