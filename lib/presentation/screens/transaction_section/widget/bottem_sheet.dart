@@ -72,98 +72,102 @@ class FilterBottermSheet extends StatelessWidget {
                       ],
                     ),
                     spaceForheight10,
-                 const FilterMoney(),
+                    const FilterMoney(),
                     spaceForheight20,
                     BlocBuilder<StatusFilter, int>(
                       builder: (context, state) {
-                        return FilterStatus(state: state,);
+                        return FilterStatus(
+                          state: state,
+                        );
                       },
                     ),
                     spaceForheight20,
                     BlocBuilder<CurrencyFilter, CurrensyState>(
                       builder: (context, state) {
-                        if(state is CurrensyStateList){
-                        return Container(
-                          height: 290,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: state.values[0],
-                                    onChanged: (value) {
-                                      BlocProvider.of<CurrencyFilter>(context)
-                                          .onTap(0, state.values, value!);
-                                    },
-                                  ),
-                                  Text(
-                                    'Currencies · 167',
-                                    style: GoogleFonts.notoSans(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              ...List.generate(
-                                3,
-                                (index) => Row(
+                        if (state is CurrensyStateList) {
+                          return Container(
+                            height: 290,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
                                     Checkbox(
-                                      value: state.values[index + 1],
+                                      value: state.values[0],
                                       onChanged: (value) {
                                         BlocProvider.of<CurrencyFilter>(context)
-                                            .onTap(index + 1, state.values, value!);
+                                            .onTap(0, state.values, value!);
                                       },
                                     ),
-                                    Expanded(
-                                      child: ListTile(
-                                        contentPadding: EdgeInsets.all(0),
-                                        leading: CircleAvatar(
-                                          radius: 21,
-                                          backgroundImage:
-                                              NetworkImage(currenyFlags[index]),
-                                        ),
-                                        title: Text(
-                                          'USD',
-                                          style: GoogleFonts.notoSans(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        subtitle: Text(
-                                          'United States Dollar',
-                                          style: GoogleFonts.notoSans(
-                                              fontSize: 11.0,
-                                              color: Color(0xFF979797)),
-                                        ),
+                                    Text(
+                                      'Currencies · 167',
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     )
                                   ],
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                  children: [
-                                    Text('See all accounts',
-                                        style: GoogleFonts.notoSans(
-                                            fontSize: 14,
-                                            color: Color(0xFF0CABDF),
-                                            fontWeight: FontWeight.w500)),
-                                  ],
+                                ...List.generate(
+                                  3,
+                                  (index) => Row(
+                                    children: [
+                                      Checkbox(
+                                        value: state.values[index + 1],
+                                        onChanged: (value) {
+                                          BlocProvider.of<CurrencyFilter>(
+                                                  context)
+                                              .onTap(index + 1, state.values,
+                                                  value!);
+                                        },
+                                      ),
+                                      Expanded(
+                                        child: ListTile(
+                                          contentPadding: EdgeInsets.all(0),
+                                          leading: CircleAvatar(
+                                            radius: 21,
+                                            backgroundImage: NetworkImage(
+                                                currenyFlags[index]),
+                                          ),
+                                          title: Text(
+                                            'USD',
+                                            style: GoogleFonts.notoSans(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            'United States Dollar',
+                                            style: GoogleFonts.notoSans(
+                                                fontSize: 11.0,
+                                                color: Color(0xFF979797)),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              )
-                            ],
-                          ),
-                        );
-                        }else{
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Row(
+                                    children: [
+                                      Text('See all accounts',
+                                          style: GoogleFonts.notoSans(
+                                              fontSize: 14,
+                                              color: Color(0xFF0CABDF),
+                                              fontWeight: FontWeight.w500)),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
                           return const SizedBox();
                         }
                       },
@@ -351,9 +355,10 @@ class FilterBottermSheet extends StatelessWidget {
 
 class FilterStatus extends StatelessWidget {
   const FilterStatus({
-    super.key, required this.state,
+    super.key,
+    required this.state,
   });
-final int state;
+  final int state;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -380,21 +385,18 @@ final int state;
               3,
               (index) => InkWell(
                 onTap: () {
-                  BlocProvider.of<StatusFilter>(context)
-                      .onTap(index);
+                  BlocProvider.of<StatusFilter>(context).onTap(index);
                 },
                 child: Container(
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                       color: index == state
-                          ? const Color.fromARGB(
-                              255, 208, 236, 245)
+                          ? const Color.fromARGB(255, 208, 236, 245)
                           : Colors.transparent,
-                      borderRadius:
-                          BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     child: Text(
                       filterStatuses[index],
                       style: GoogleFonts.notoSans(
@@ -413,21 +415,18 @@ final int state;
               3,
               (index) => InkWell(
                 onTap: () {
-                  BlocProvider.of<StatusFilter>(context)
-                      .onTap(index + 3);
+                  BlocProvider.of<StatusFilter>(context).onTap(index + 3);
                 },
                 child: Container(
                   margin: const EdgeInsets.only(right: 10),
                   decoration: BoxDecoration(
                       color: index + 3 == state
-                          ? const Color.fromARGB(
-                              255, 208, 236, 245)
+                          ? const Color.fromARGB(255, 208, 236, 245)
                           : Colors.transparent,
-                      borderRadius:
-                          BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     child: Text(
                       filterStatuses[index + 3],
                       style: GoogleFonts.notoSans(
@@ -481,18 +480,15 @@ class FilterMoney extends StatelessWidget {
                   2,
                   (index) => InkWell(
                     onTap: () {
-                      BlocProvider.of<MoneyFilter>(context)
-                          .onTap(index);
+                      BlocProvider.of<MoneyFilter>(context).onTap(index);
                     },
                     child: Container(
                       margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                           color: index == state
-                              ? const Color.fromARGB(
-                                  255, 208, 236, 245)
+                              ? const Color.fromARGB(255, 208, 236, 245)
                               : Colors.transparent,
-                          borderRadius:
-                              BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 4),

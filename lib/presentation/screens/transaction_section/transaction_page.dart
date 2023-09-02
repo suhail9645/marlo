@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:marlo/logic/filter/filter_cubit.dart';
 import 'package:marlo/presentation/const/widget.dart';
 
+import '../../../logic/transaction/transactions_bloc.dart';
 import 'widget/bottem_sheet.dart';
 
 class TransactionPage extends StatelessWidget {
@@ -86,13 +87,13 @@ class TransactionPage extends StatelessWidget {
                               BlocProvider.value(
                                 value: BlocProvider.of<MoneyFilter>(context),
                               ),
-                               BlocProvider.value(
+                              BlocProvider.value(
                                 value: BlocProvider.of<StatusFilter>(context),
                               ),
-                               BlocProvider.value(
+                              BlocProvider.value(
                                 value: BlocProvider.of<DateFilter>(context),
                               ),
-                               BlocProvider.value(
+                              BlocProvider.value(
                                 value: BlocProvider.of<CurrencyFilter>(context),
                               )
                             ],
@@ -116,63 +117,81 @@ class TransactionPage extends StatelessWidget {
                 ],
               ),
               spaceForheight20,
-              Column(
-                children: List.generate(
-                  15,
-                  (index) => Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: ListTile(
-                      leading: Container(
-                        height: 45,
-                        width: 45,
+              BlocBuilder<TransactionsBloc, TransactionsState>(
+                builder: (context, state) {
+                  if(state is TrasactionGetSuccessState){
+                  return Column(
+                    children: List.generate(
+                      state.allTransactions.length,
+                      (index){
+                        String minusOrPlus=state.allTransactions[index].amount![0]=='-'?'-':'+';
+                        String currency=state.allTransactions[index].currency!;
+                        String amount=state.allTransactions[index].amount!;
+                        if(amount[0]=='-'){
+                          amount=amount.substring(1,amount.length);
+                        }
+                        String realAmount=minusOrPlus+currency+amount.toString();
+
+                         return Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 0),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF00455B),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: index % 2 == 0
-                              ? const Icon(
-                                  Icons.attach_money,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : const Icon(
-                                  Icons.arrow_outward,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                        ),
-                      ),
-                      title: Text(
-                        'Rent',
-                        style: GoogleFonts.notoSans(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        'Sat ·16 Jul · 9.00 pm',
-                        style: GoogleFonts.notoSans(
-                            fontSize: 13, color: const Color(0xFF979797)),
-                      ),
-                      trailing: Column(
-                        children: [
-                          spaceForheight10,
-                          Text(
-                            '-\$850.00',
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListTile(
+                          leading: Container(
+                            height: 45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF00455B),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: index % 2 == 0
+                                  ? const Icon(
+                                      Icons.attach_money,
+                                      color: Colors.white,
+                                      size: 30,
+                                    )
+                                  : const Icon(
+                                      Icons.arrow_outward,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                            ),
+                          ),
+                          title: Text(
+                           state.allTransactions[index].description!,
                             style: GoogleFonts.notoSans(
-                                color: index % 2 == 0
-                                    ? Colors.green
-                                    : Colors.black,
-                                fontSize: 15),
-                          )
-                        ],
-                      ),
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            'Sat ·16 Jul · 9.00 pm',
+                            style: GoogleFonts.notoSans(
+                                fontSize: 13, color: const Color(0xFF979797)),
+                          ),
+                          trailing: Column(
+                            children: [
+                              spaceForheight10,
+                              Text(
+                                realAmount,
+                                style: GoogleFonts.notoSans(
+                                    color: state.allTransactions[index].amount![0]=='-'
+                                        ?Colors.black
+                                        :  Colors.green,
+                                    fontSize: 15),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                      }
                     ),
-                  ),
-                ),
+                  );
+                  }else{
+                    return const Center(child: CircularProgressIndicator(),);
+                  }
+                },
               )
             ],
           ),

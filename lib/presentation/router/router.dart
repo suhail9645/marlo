@@ -7,9 +7,9 @@ import 'package:marlo/presentation/screens/transaction_section/transaction_page.
 class AppRouter {
   Route onGenerateRote(RouteSettings routeSettings) {
     MoneyFilter moneyFilter = MoneyFilter();
-    StatusFilter statusFilter=StatusFilter();
-    DateFilter dateFilter=DateFilter();
-    CurrencyFilter currencyFilter=CurrencyFilter();
+    StatusFilter statusFilter = StatusFilter();
+    DateFilter dateFilter = DateFilter();
+    CurrencyFilter currencyFilter = CurrencyFilter();
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -17,14 +17,14 @@ class AppRouter {
         );
       case 'Transaction':
         return MaterialPageRoute(
-          builder: (_) =>  MultiBlocProvider(
+          builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider.value(value: moneyFilter),
-               BlocProvider.value(value: statusFilter),
-               BlocProvider.value(value: dateFilter),
-               BlocProvider.value(value: currencyFilter),
+              BlocProvider.value(value: statusFilter),
+              BlocProvider.value(value: dateFilter),
+              BlocProvider.value(value: currencyFilter),
             ],
-            child:const TransactionPage(),
+            child: const TransactionPage(),
           ),
         );
       default:
