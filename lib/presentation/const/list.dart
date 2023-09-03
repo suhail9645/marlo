@@ -61,3 +61,5 @@ List<String> filterTimeRanges = [
   'This quarter'
 ];
 List<String> amountMinAndMax = ['Minimum', 'Maximum'];
+
+List<String> filterCurrencies=['USD','CAD','GAP'];
