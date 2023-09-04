@@ -53,5 +53,13 @@ List<String> filterStatuses = [
   'Cancelled'
 ];
 
-List<String>filterTimeRanges=['Custom','Today','This week','This month','This quarter'];
-List<String>amountMinAndMax=['Minimum','Maximum'];
+List<String> filterTimeRanges = [
+  'Custom',
+  'Today',
+  'This week',
+  'This month',
+  'This quarter'
+];
+List<String> amountMinAndMax = ['Minimum', 'Maximum'];
+
+List<String> filterCurrencies=['USD','CAD','GAP'];

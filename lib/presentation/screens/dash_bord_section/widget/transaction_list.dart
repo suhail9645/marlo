@@ -1,20 +1,28 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marlo/data_layer/model/transactions/datum.dart';
 
 import '../../../const/widget.dart';
 
 class TransactionList extends StatelessWidget {
   const TransactionList({
     super.key,
+    required this.allTransactions,
   });
-
+  final List<Transaction> allTransactions;
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(
-        4,
-        (index) => Container(
+      children: List.generate(4, (index) {
+        String minusOrPlus =
+            allTransactions[index].amount![0] == '-' ? '-' : '+';
+        String currency = allTransactions[index].currency!;
+        String amount = allTransactions[index].amount!;
+        if (amount[0] == '-') {
+          amount = amount.substring(1, amount.length);
+        }
+        String realAmount = minusOrPlus + currency + amount.toString();
+        return Container(
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -41,12 +49,12 @@ class TransactionList extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Rent',
+              allTransactions[index].description!,
               style: GoogleFonts.notoSans(
                   fontSize: 16, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              'Sat ·16 Jul · 9.00 pm',
+              allTransactions[index].createdAt!.toString(),
               style: GoogleFonts.notoSans(
                   fontSize: 13, color: const Color(0xFF979797)),
             ),
@@ -54,16 +62,16 @@ class TransactionList extends StatelessWidget {
               children: [
                 spaceForheight10,
                 Text(
-                  '-\$850.00',
+                  realAmount,
                   style: GoogleFonts.notoSans(
-                      color: index % 2 == 0 ? Colors.green : Colors.black,
+                      color: allTransactions[index].amount![0]!='-' ? Colors.green : Colors.black,
                       fontSize: 15),
                 )
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

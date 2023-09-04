@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:marlo/data_layer/model/transactions/datum.dart';
+import 'package:marlo/logic/transaction/transactions_bloc.dart';
 import 'package:marlo/presentation/const/list.dart';
 import 'package:marlo/presentation/const/widget.dart';
 
@@ -11,6 +14,8 @@ class DashBordPage extends StatelessWidget {
   const DashBordPage({super.key});
   @override
   Widget build(BuildContext context) {
+    List<Transaction>allTransactions=[];
+    BlocProvider.of<TransactionsBloc>(context).add(TransactionsInitialEvent());
     Size screenSize = MediaQuery.of(context).size;
     double screeHeight = screenSize.height;
     double screenWidth = screenSize.width;
@@ -81,7 +86,7 @@ class DashBordPage extends StatelessWidget {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, 'Transaction');
+                        Navigator.pushNamed(context, 'Transaction',arguments:allTransactions );
                       },
                       child: Text(
                         'See all',
@@ -93,7 +98,17 @@ class DashBordPage extends StatelessWidget {
                   ],
                 ),
                 spaceForheight20,
-                const TransactionList()
+                 BlocBuilder<TransactionsBloc, TransactionsState>(
+                  builder: (context, state) {
+                    if(state is TrasactionGetSuccessState){
+                      allTransactions=state.allTransactions;
+                      return TransactionList(allTransactions: state.allTransactions,);
+                    }
+                   else{
+                    return const Center(child: CircularProgressIndicator(),);
+                   }
+                  },
+                )
               ],
             ),
           ),
