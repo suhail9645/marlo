@@ -88,9 +88,9 @@ class TransactionPage extends StatelessWidget {
                   ),
                   BlocBuilder<FilterBloc, FilterState>(
                     builder: (context, state) {
-                      if(state is FilterImplemntState){
-                         BlocProvider.of<SearchCubit>(context)
-                              .onFilter(state, allTransactions);
+                      if (state is FilterImplemntState) {
+                        BlocProvider.of<SearchCubit>(context)
+                            .onFilter(state, allTransactions);
                       }
                       return Expanded(
                         flex: 1,
@@ -119,11 +119,14 @@ class TransactionPage extends StatelessWidget {
                                   BlocProvider.value(
                                     value: BlocProvider.of<FilterBloc>(context),
                                   ),
-                                   BlocProvider.value(
-                                    value: BlocProvider.of<SearchCubit>(context),
+                                  BlocProvider.value(
+                                    value:
+                                        BlocProvider.of<SearchCubit>(context),
                                   )
                                 ],
-                                child:  FilterBottermSheet(allTransactions: allTransactions,),
+                                child: FilterBottermSheet(
+                                  allTransactions: allTransactions,
+                                ),
                               ),
                             );
                           },
@@ -153,8 +156,7 @@ class TransactionPage extends StatelessWidget {
                 builder: (context, state) {
                   if (state is FilterImplemntState) {
                     List<List<String>> itemsToshow = state.itemsToshow();
-                    
-                   
+
                     return GridView.builder(
                       shrinkWrap: true,
                       itemCount: itemsToshow.length,
@@ -168,8 +170,11 @@ class TransactionPage extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             BlocProvider.of<FilterBloc>(context).add(
-                                FilterEditEvent(value:itemsToshow[ index].first, state: state));
-                          BlocProvider.of<SearchCubit>(context).onFilter(state, allTransactions);
+                                FilterEditEvent(
+                                    value: itemsToshow[index].first,
+                                    state: state));
+                            BlocProvider.of<SearchCubit>(context)
+                                .onFilter(state, allTransactions);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -209,9 +214,7 @@ class TransactionPage extends StatelessWidget {
                         ? ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: state.searchResult.length <= 100
-                                ? state.searchResult.length
-                                : 100,
+                            itemCount: state.searchResult.length,
                             itemBuilder: (context, index) {
                               String minusOrPlus =
                                   state.searchResult[index].amount![0] == '-'
@@ -272,7 +275,7 @@ class TransactionPage extends StatelessWidget {
                                       Text(
                                         realAmount,
                                         style: GoogleFonts.notoSans(
-                                            color: allTransactions[index]
+                                            color: state.searchResult[index]
                                                         .amount![0] ==
                                                     '-'
                                                 ? Colors.black

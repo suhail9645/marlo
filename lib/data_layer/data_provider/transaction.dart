@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:marlo/data_layer/data_provider/auth.dart';
-import 'package:marlo/data_layer/data_provider/refresh.dart';
 import 'package:marlo/data_layer/model/error_model/error.dart';
 
 class TransactionsImp {

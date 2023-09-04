@@ -15,7 +15,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
       transactionType: json['transactionType'] as String?,
       currency: json['currency'] as String?,
       createdAt: json['createdAt'],
-      fee: json['fee'] as int?,
+      fee: json['fee'] as String?,
       description: json['description'] as String?,
       settledAt: json['settledAt'] as String?,
       estimatedSettledAt: json['estimatedSettledAt'],

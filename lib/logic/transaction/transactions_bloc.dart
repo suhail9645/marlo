@@ -20,14 +20,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
       TransactionsInitialEvent event, Emitter<TransactionsState> emit) async {
     SharedPreferences shrd = await SharedPreferences.getInstance();
     String? access = shrd.getString('access');
-    if (access == null) {
-      final accessOrError = await AuthUser().loginUser();
-      if (accessOrError.isLeft) {
-        emit(TrasactionGetErrorState(error: accessOrError.left.error));
-      } else {
-        access = accessOrError.right;
-      }
-    }
+    
    final errorOrSuccess=await TransactionRepo().getAllTransactions(access!);
    if(errorOrSuccess.isLeft){
     emit(TrasactionGetErrorState(error: errorOrSuccess.left.error));

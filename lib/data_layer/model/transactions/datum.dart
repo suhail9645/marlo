@@ -12,7 +12,7 @@ class Transaction {
   String? transactionType;
   String? currency;
   dynamic createdAt;
-  int? fee;
+  String? fee;
   String? description;
   String? settledAt;
   dynamic estimatedSettledAt;
