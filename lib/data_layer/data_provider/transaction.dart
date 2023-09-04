@@ -34,7 +34,7 @@ class TransactionsImp {
         ),
       );
       Response response = await dio.get(
-          'https://asia-southeast1-marlo-bank-dev.cloudfunctions.net/api_dev/v2/airwallex/995b1e2e-c5ac-417b-afe5-1de5e92f4cf3/transfers');
+          '');
      return Right(response);
     } on DioException catch (e) {
      return Left(ErrorModel(error: e.message.toString()));

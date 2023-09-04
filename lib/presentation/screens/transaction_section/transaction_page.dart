@@ -6,7 +6,6 @@ import 'package:marlo/data_layer/model/transactions/datum.dart';
 import 'package:marlo/logic/filter/filter_cubit.dart';
 import 'package:marlo/logic/filter_bloc/filter_bloc.dart';
 import 'package:marlo/presentation/const/widget.dart';
-
 import '../../../logic/search_cubit/search_cubit.dart';
 import '../../../logic/transaction/transactions_bloc.dart';
 import 'widget/bottem_sheet.dart';
